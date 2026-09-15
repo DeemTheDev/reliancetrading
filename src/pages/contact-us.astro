@@ -1,0 +1,68 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import ContactForm from '../components/ContactForm.astro';
+import { site } from '../config/site';
+
+const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(site.address.mapQuery)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
+const socials = [
+  { key: 'linkedin', label: 'LinkedIn', href: site.social.linkedin },
+  { key: 'facebook', label: 'Facebook', href: site.social.facebook },
+  { key: 'instagram', label: 'Instagram', href: site.social.instagram },
+].filter((s) => s.href) as { key: 'linkedin' | 'facebook' | 'instagram'; label: string; href: string }[];
+---
+<BaseLayout title="Contact Us" description={`Contact ${site.name} on ${site.phone} or ${site.email} for your property bridging finance needs.`} showPopup={false}>
+  <PageHero title="Contact" subtitle="Get in touch with us for your property finance needs" image="/images/hero-contact.svg" />
+
+  <section class="section">
+    <div class="container contact-grid">
+      <div class="contact-info" data-reveal="left">
+        <p class="eyebrow">Get in touch</p>
+        <h2>Our offices</h2>
+        <h3>Head office</h3>
+        <h4>{site.address.oneLine}</h4>
+        {site.postalAddress && <p class="small">{site.postalAddress}</p>}
+        <ul class="icon-list">
+          <li><Icon name="phone" /><a href={site.phoneHref}>{site.phone}</a></li>
+          <li><Icon name="envelope" /><a href={`mailto:${site.email}`}>{site.email}</a></li>
+          <li><Icon name="map-pin" /><span>{site.address.lines.join(', ')}</span></li>
+        </ul>
+        {socials.length > 0 && (
+          <div class="social-links">
+            {socials.map((s) => <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}><Icon name={s.key} /></a>)}
+          </div>
+        )}
+      </div>
+      <div data-reveal="right">
+        <iframe
+          class="map-embed"
+          src={mapSrc}
+          title={`Map of ${site.address.oneLine}`}
+          loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"
+          allowfullscreen
+        ></iframe>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--grey" id="message">
+    <div class="container">
+      <div class="text-center" style="margin-bottom:40px" data-reveal>
+        <p class="eyebrow">Get in touch with us for the best advice on bridging finance</p>
+        <h2>Leave a message</h2>
+        <hr class="divider divider--center" />
+      </div>
+      <div data-reveal style="--reveal-delay:120ms"><ContactForm /></div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  // No-JS fallback lands here with ?sent=1 / ?error=1 after a normal form post.
+  const q = new URLSearchParams(location.search);
+  const status = document.getElementById('form-status');
+  if (status && q.has('sent')) { status.textContent = 'Thank you - your message has been sent.'; status.className = 'form-status ok'; document.getElementById('message')?.scrollIntoView(); }
+  if (status && q.has('error')) { status.textContent = 'Sorry, the message could not be sent. Please email us directly.'; status.className = 'form-status err'; document.getElementById('message')?.scrollIntoView(); }
+</script>

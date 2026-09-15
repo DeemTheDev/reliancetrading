@@ -1,0 +1,117 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+const co = site.name;
+---
+<BaseLayout title="Privacy Policy" description={`How ${site.legalName} collects, uses and protects personal information (POPIA privacy notice).`} showPopup={false}>
+  <div class="legal prose">
+    <h1>Privacy Notice</h1>
+    <p class="sub">{site.legalName.toUpperCase()} &middot; Registration number {site.registrationNumber}</p>
+
+    <h2>Introduction</h2>
+    <p>
+      This is a notice to all data subjects (our clients) on how {co} processes their personal information, as
+      required by the Protection of Personal Information Act 4 of 2013 (“POPIA”).
+    </p>
+
+    <h2>Who we are</h2>
+    <p>
+      {site.legalName} (“{co}”, “we”) is a property bridging finance company based in {site.headOffice}, operating
+      nationally throughout South Africa. Our main focus is on the offering of property-related bridging finance
+      products to individuals and business entities involved in transactions where there is a sale of a property or
+      registration of a new bond pending.
+    </p>
+
+    <h2>The type of personal information we collect</h2>
+    <p>We currently collect and process the following information:</p>
+    <ul>
+      <li>Personal identifiers, contacts and characteristics (for example name, identity or registration numbers, bank details and contact details).</li>
+      <li>Details of the property transaction concerned (for example the sale agreement, bond instruction, statements of account and guarantees).</li>
+    </ul>
+
+    <h2>How we get the personal information and what we use it for</h2>
+    <p>
+      Most of the personal information we process is provided to us directly by the client, or by the attorneys
+      instructed by the client, for the following reasons:
+    </p>
+    <ul>
+      <li>
+        To prepare and process bridging finance applications for clients wishing to discount surplus proceeds due to
+        them on registration of property-related transactions (for example seller proceeds, estate agent commission
+        advances and bond advances). The finance may typically be utilised for the payment of rates, levies,
+        compliance certificates and personal reasons.
+      </li>
+      <li>To perform credit verification with the relevant credit bureaus, with the client’s consent as recorded in the Master Discounting Agreement.</li>
+      <li>To communicate with the client and the attorneys about the transaction, and to comply with our legal obligations.</li>
+    </ul>
+    <p>We also receive personal information indirectly, from the following sources:</p>
+    <ul>
+      <li>Property sale agreements</li>
+      <li>Bank guarantees</li>
+      <li>The attorneys attending to the property transaction in question</li>
+    </ul>
+
+    <h2>We may share this information with</h2>
+    <ul>
+      <li>Internal {co} staff</li>
+      <li>The conveyancing and bond attorneys attending to the transaction</li>
+      <li>Credit bureaus, for the purpose of credit verification</li>
+      <li>Service providers who act on our behalf (for example IT and banking service providers), under a duty of confidentiality</li>
+    </ul>
+
+    <h2>When will we process your personal information</h2>
+    <p>In terms of POPIA, the justification grounds on which we base our processing consist of the following:</p>
+    <ul>
+      <li>The data subject, or a competent person where the data subject is a child, consents to the processing. Kindly note that you have the right to withdraw your consent;</li>
+      <li>The processing is necessary to carry out actions for the conclusion or performance of a contract to which the data subject is a party;</li>
+      <li>The processing complies with an obligation imposed by law on the business;</li>
+      <li>The processing protects a legitimate interest of the data subject;</li>
+      <li>The processing is necessary for the proper performance of a public law duty by the business; or</li>
+      <li>The processing is necessary for pursuing the legitimate interests of the business or of a third party to whom the information is supplied.</li>
+    </ul>
+
+    <h2>How we store your personal information</h2>
+    <p>
+      Your information is stored securely in electronic format. We keep your information for 5 years after the
+      conclusion of the transaction, whereafter it is deleted from our secure systems unless a longer retention period
+      is required by law. No hard copies of personal information are kept or stored.
+    </p>
+
+    <h2>Your data protection rights</h2>
+    <ul>
+      <li>You are entitled to access your personal data by sending a written request to the contact person below. We may charge you a reasonable fee for this service.</li>
+      <li>You may request us to correct or supplement any of your personal data, which we will undertake as soon as practicable.</li>
+      <li>You may request the destruction of your personal data. We will consider your request in light of any other laws or regulations prohibiting us from destroying your personal data.</li>
+      <li>You may object, on reasonable grounds, to the processing of your personal data.</li>
+      <li>You are not required to pay any charge for exercising your rights. If you make a request, we have one month to respond to you.</li>
+    </ul>
+    <p>Please contact us at <a href={site.phoneHref}>{site.phone}</a> / <a href={`mailto:${site.email}`}>{site.email}</a> if you wish to make a request.</p>
+
+    <h2>Contact details</h2>
+    <table>
+      <tbody>
+        <tr><th>Name</th><td>{site.informationOfficer.name} ({site.informationOfficer.title})</td></tr>
+        <tr><th>Address</th><td>{site.address.oneLine}</td></tr>
+        <tr><th>Phone number</th><td>{site.phone}</td></tr>
+        <tr><th>Email</th><td>{site.informationOfficer.email}</td></tr>
+      </tbody>
+    </table>
+
+    <h2>How to complain</h2>
+    <p>
+      If you have any concerns about our use of your personal information, you can make a complaint to us at
+      <a href={`mailto:${site.email}`}>{site.email}</a>. You can also complain to the Information Regulator if you are
+      unhappy with how we have used your information. Their contact details are as follows:
+    </p>
+    <p>
+      <strong>The Information Regulator (South Africa)</strong><br />
+      JD House, 27 Stiemens Street, Braamfontein, Johannesburg, 2001<br />
+      P.O. Box 31533, Braamfontein, Johannesburg, 2017<br />
+      Complaints email: <a href="mailto:complaints.IR@justice.gov.za">complaints.IR@justice.gov.za</a><br />
+      General enquiries: <a href="mailto:enquiries@inforegulator.org.za">enquiries@inforegulator.org.za</a><br />
+      Website: <a href="https://inforegulator.org.za" target="_blank" rel="noopener">inforegulator.org.za</a>
+    </p>
+
+    <p class="small muted" style="margin-top:40px">Last updated: September 2026.</p>
+  </div>
+</BaseLayout>

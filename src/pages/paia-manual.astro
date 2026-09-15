@@ -1,0 +1,154 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../config/site';
+const co = site.legalName;
+---
+<BaseLayout title="PAIA Manual" description={`Section 51 manual of ${site.legalName} in terms of the Promotion of Access to Information Act.`} showPopup={false}>
+  <div class="legal prose">
+    <h1>PAIA Manual</h1>
+    <p class="sub">Section 51 manual for {co.toUpperCase()} &middot; Registration number {site.registrationNumber}</p>
+
+    <p class="todo">
+      <strong>Draft for legal review.</strong> This manual follows the structure of the original site’s manual, updated
+      for the current PAIA Regulations (2021) and POPIA. Items in [brackets] must be completed, and the manual should
+      be checked by the company’s attorney before publication and made available as the Regulator requires.
+    </p>
+
+    <h2>1. Introduction</h2>
+    <p>
+      This manual is published in terms of section 51 of the Promotion of Access to Information Act 2 of 2000
+      (“PAIA”), read with the Protection of Personal Information Act 4 of 2013 (“POPIA”). It explains how to request
+      access to records held by {co} (“the Company”) and how the Company processes personal information.
+    </p>
+
+    <h2>2. Contact details – section 51(1)(a)</h2>
+    <table>
+      <tbody>
+        <tr><th>Name of private body</th><td>{co}</td></tr>
+        <tr><th>Registration number</th><td>{site.registrationNumber}</td></tr>
+        <tr><th>Head of the private body</th><td>[Name of Director]</td></tr>
+        <tr><th>Information Officer</th><td>{site.informationOfficer.name}</td></tr>
+        <tr><th>Deputy Information Officer</th><td>[Name, if appointed]</td></tr>
+        <tr><th>Postal address</th><td>{site.postalAddress || site.address.oneLine}</td></tr>
+        <tr><th>Street address</th><td>{site.address.oneLine}</td></tr>
+        <tr><th>Telephone</th><td>{site.phone}</td></tr>
+        <tr><th>Email</th><td>{site.informationOfficer.email}</td></tr>
+        <tr><th>Website</th><td>{site.url}</td></tr>
+      </tbody>
+    </table>
+
+    <h2>3. Guide of the Information Regulator – section 51(1)(b)</h2>
+    <p>
+      The Information Regulator has compiled a Guide in terms of section 10 of PAIA. It contains information required
+      by a person wishing to exercise any right contemplated by PAIA and POPIA, and is available in all official
+      languages. The Guide is available from the Information Regulator:
+    </p>
+    <ul>
+      <li>JD House, 27 Stiemens Street, Braamfontein, Johannesburg, 2001</li>
+      <li>P.O. Box 31533, Braamfontein, Johannesburg, 2017</li>
+      <li>Email: <a href="mailto:enquiries@inforegulator.org.za">enquiries@inforegulator.org.za</a></li>
+      <li>Website: <a href="https://inforegulator.org.za" target="_blank" rel="noopener">inforegulator.org.za</a></li>
+    </ul>
+
+    <h2>4. Records automatically available – section 51(1)(c) and 52(2)</h2>
+    <p>
+      No notice has been published in terms of section 52(2) regarding categories of records that are automatically
+      available without a formal request. The following are, however, available without a request: information
+      published on this website, marketing material and this manual.
+    </p>
+
+    <h2>5. Records available in terms of other legislation – section 51(1)(d)</h2>
+    <p>Records are kept and, where applicable, available in terms of the following legislation:</p>
+    <ul>
+      <li>Basic Conditions of Employment Act 75 of 1997</li>
+      <li>Companies Act 71 of 2008</li>
+      <li>Compensation for Occupational Injuries and Diseases Act 130 of 1993</li>
+      <li>Employment Equity Act 55 of 1998</li>
+      <li>Income Tax Act 58 of 1962</li>
+      <li>Labour Relations Act 66 of 1995</li>
+      <li>Protection of Personal Information Act 4 of 2013</li>
+      <li>Skills Development Act 97 of 1998 and Skills Development Levies Act 9 of 1999</li>
+      <li>Unemployment Insurance Act 63 of 2001</li>
+      <li>Value-Added Tax Act 89 of 1991</li>
+    </ul>
+
+    <h2>6. Subjects and categories of records held – section 51(1)(e)</h2>
+    <h3>Companies Act records</h3>
+    <ul>
+      <li>Documents of incorporation and Memorandum of Incorporation</li>
+      <li>Minutes of meetings of the Board of Directors</li>
+      <li>Records relating to the appointment of directors, auditors, company secretary, public officer and other officers</li>
+      <li>Share register and other statutory registers</li>
+    </ul>
+    <h3>Financial records</h3>
+    <ul>
+      <li>Annual financial statements</li>
+      <li>Tax returns</li>
+      <li>Accounting records</li>
+      <li>Banking records (bank statements, electronic banking records)</li>
+      <li>Asset register</li>
+      <li>Rental agreements</li>
+      <li>Invoices</li>
+    </ul>
+    <h3>Income tax records</h3>
+    <ul>
+      <li>PAYE records</li>
+      <li>Documents issued to employees for income tax purposes</li>
+      <li>Records of payments made to SARS on behalf of employees</li>
+      <li>All statutory compliances: VAT, Skills Development Levies, UIF, Workmen’s Compensation</li>
+    </ul>
+    <h3>Personnel documents and records</h3>
+    <ul>
+      <li>Employment contracts</li>
+      <li>Employment Equity Plan (if applicable)</li>
+      <li>Disciplinary records</li>
+      <li>Salary records</li>
+      <li>SETA records</li>
+      <li>Leave records</li>
+      <li>Training records and training manuals</li>
+    </ul>
+    <h3>Client records</h3>
+    <ul>
+      <li>Master Discounting Agreements and application forms</li>
+      <li>Letters of Undertaking and guarantees</li>
+      <li>Supporting documents supplied by clients and attorneys (sale agreements, bond instructions, statements of account)</li>
+      <li>Correspondence with clients and attorneys</li>
+    </ul>
+
+    <h2>7. Processing of personal information – section 51(1)(c) read with POPIA</h2>
+    <table>
+      <tbody>
+        <tr><th>Purpose of processing</th><td>To assess, conclude and administer bridging finance transactions; credit verification; communication with clients and attorneys; compliance with legal obligations.</td></tr>
+        <tr><th>Categories of data subjects</th><td>Clients (sellers, buyers, estate agents, bond holders and business entities), their directors and sureties; conveyancing and bond attorneys; employees; suppliers.</td></tr>
+        <tr><th>Categories of personal information</th><td>Identity and contact details, identity or registration numbers, banking details, property transaction details, credit information, employment records.</td></tr>
+        <tr><th>Recipients</th><td>Internal staff; attorneys attending to the transaction; credit bureaus; service providers acting on our behalf; regulators where required by law.</td></tr>
+        <tr><th>Planned transborder flows</th><td>None. [Confirm, e.g. if cloud services are hosted outside South Africa.]</td></tr>
+        <tr><th>Security measures</th><td>Personal information is stored electronically on access-controlled systems, protected by passwords and encryption, and is only accessible to authorised staff. Records are retained for 5 years after conclusion of the transaction and then deleted.</td></tr>
+      </tbody>
+    </table>
+
+    <h2>8. How to request access to a record</h2>
+    <ol>
+      <li>Complete the prescribed Form 2 (Request for Access to Record) available from the Information Regulator’s website or from the Company.</li>
+      <li>Submit the form to the Information Officer at the email or postal address in section 2, together with the prescribed request fee [R100 at the time of publication – verify against the current PAIA fee regulations].</li>
+      <li>Provide sufficient particulars to identify the record(s) requested, indicate the form of access required, and supply your postal address, email address or telephone number in South Africa.</li>
+      <li>Identify the right you are seeking to exercise or protect and explain why the record is required to exercise or protect that right.</li>
+      <li>If the request is made on behalf of another person, submit proof of the capacity in which you are making the request.</li>
+    </ol>
+    <p>
+      The Company will respond within 30 days of receiving the request, which period may be extended once by a
+      further 30 days where permitted by PAIA. Access may be refused on the grounds set out in Chapter 4 of Part 3
+      of PAIA (for example the protection of the privacy of a third party, commercial information or legally
+      privileged records). A requester who is dissatisfied with a decision may lodge a complaint with the Information
+      Regulator or apply to a court.
+    </p>
+
+    <h2>9. Availability of this manual</h2>
+    <p>
+      This manual is available on the Company’s website at {site.url}/paia-manual/, at the Company’s offices during
+      office hours, and from the Information Regulator.
+    </p>
+
+    <p class="small muted" style="margin-top:40px">Issued: September 2026. Signed: [Head of the private body].</p>
+  </div>
+</BaseLayout>

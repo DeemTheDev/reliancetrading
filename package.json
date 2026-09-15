@@ -1,0 +1,25 @@
+{
+  "name": "reliance-trading-website",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Reliance Trading SA (Pty) Ltd - property bridging finance website",
+  "scripts": {
+    "dev": "astro dev",
+    "build": "astro build",
+    "preview": "astro preview",
+    "check": "astro check"
+  },
+  "dependencies": {
+    "@astrojs/sitemap": "^3.3.0",
+    "@astrojs/vercel": "^8.1.0",
+    "astro": "^5.7.0",
+    "nodemailer": "^6.10.0"
+  },
+  "devDependencies": {
+    "@types/nodemailer": "^6.4.17"
+  },
+  "engines": {
+    "node": ">=18.17.1"
+  }
+}

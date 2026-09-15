@@ -1,0 +1,20 @@
+---
+/**
+ * Inner-page banner: photo (left) with the page title, gradient panel (right)
+ * with a subtitle and optional button - the layout used on every inner page
+ * of the original site.
+ */
+interface Props { title: string; subtitle?: string; image?: string; buttonLabel?: string; buttonHref?: string }
+const { title, subtitle, image = '/images/hero-generic.svg', buttonLabel, buttonHref } = Astro.props;
+---
+<section class="page-hero">
+  <div class="page-hero-media">
+    <div class="parallax-bg" data-parallax="0.22" style={`background-image:url('${image}')`}></div>
+    <h1>{title}</h1>
+  </div>
+  <div class="page-hero-panel">
+    {subtitle && <h3>{subtitle}</h3>}
+    {buttonLabel && buttonHref && <a class="btn btn-outline btn-sm" href={buttonHref}>{buttonLabel}</a>}
+    <slot />
+  </div>
+</section>

@@ -1,0 +1,17 @@
+---
+/** Floating social icons on the right edge (desktop only). Icons without a URL are hidden. */
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+const links = [
+  { key: 'facebook', label: 'Facebook', href: site.social.facebook },
+  { key: 'linkedin', label: 'LinkedIn', href: site.social.linkedin },
+  { key: 'instagram', label: 'Instagram', href: site.social.instagram },
+].filter((l) => l.href) as { key: 'facebook' | 'linkedin' | 'instagram'; label: string; href: string }[];
+---
+{links.length > 0 && (
+  <div class="social-bar" aria-label="Social media">
+    {links.map((l) => (
+      <a href={l.href} target="_blank" rel="noopener" aria-label={l.label}><Icon name={l.key} /></a>
+    ))}
+  </div>
+)}

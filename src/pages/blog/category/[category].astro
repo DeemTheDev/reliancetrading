@@ -1,0 +1,25 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import PageHero from '../../../components/PageHero.astro';
+import PostGrid from '../../../components/PostGrid.astro';
+import { categories, categorySlugs } from '../../../data/categories';
+
+export function getStaticPaths() {
+  return categorySlugs.map((category) => ({ params: { category }, props: { name: categories[category] } }));
+}
+const { category } = Astro.params;
+const { name } = Astro.props;
+const posts = (await getCollection('blog', ({ data }) => !data.draft && data.category === category)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+<BaseLayout title={name} description={`${name} articles and news.`}>
+  <PageHero title="News" subtitle={name} image="/images/hero-news.svg" />
+  <section class="section">
+    <div class="container">
+      <div class="breadcrumb"><a href="/blog/">News</a> / {name}</div>
+      <PostGrid posts={posts} emptyText={`No articles in “${name}” yet.`} />
+    </div>
+  </section>
+</BaseLayout>

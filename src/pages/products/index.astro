@@ -1,0 +1,72 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+import { site } from '../../config/site';
+import { products, getProduct } from '../../data/products';
+
+const left = ['seller-advances', 'commission-advances', 'secured-business-loans'].map(getProduct);
+const right = ['bond-advances', 'property-buyers'].map(getProduct);
+---
+<BaseLayout title="Services" description={`${site.name} services: seller advances, commission advances, bond advances, property buyer finance and secured business loans.`}>
+  <PageHero title="Services" subtitle="We offer a full range of financial services" image="/images/hero-services.svg" />
+
+  <section class="strategy-banner">
+    <div class="container"><h2>Strategy. Planning. Execution.</h2></div>
+  </section>
+
+  <section class="section--tight">
+    <div class="container">
+      <div class="convey-card" data-reveal>
+        <div>
+          <h3>Conveyancers / Paralegals:</h3>
+          <p>We take the administrative burden away by completing the paperwork for you!</p>
+        </div>
+        <a class="btn btn-brand" href="/bridging-checklist/">Bridging checklist <Icon name="file-text" /></a>
+      </div>
+      <p class="convey-note" data-reveal>
+        Simply provide us with the relevant information / documentation referred to in the bridging checklist and we
+        will do the rest.
+      </p>
+    </div>
+  </section>
+
+  <section class="split">
+    <div class="split-text align-right">
+      {left.map((p, i) => p && (
+        <div class="prod-block" data-reveal="left" style={`--reveal-delay:${i * 120}ms`}>
+          <p class="eyebrow">{p.label}</p>
+          <h3>{p.title}</h3>
+          <p>{p.summary}</p>
+          <a class="btn btn-brand btn-sm" href={`/products/${p.slug}/`}>Learn more</a>
+        </div>
+      ))}
+    </div>
+    <div class="split-media">
+      <div class="parallax-bg" data-parallax="0.2" style="background-image:url('/images/product-seller-advances.svg')"></div>
+    </div>
+  </section>
+
+  <section class="split">
+    <div class="split-media">
+      <div class="parallax-bg" data-parallax="0.2" style="background-image:url('/images/product-bond-advances.svg')"></div>
+    </div>
+    <div class="split-text">
+      {right.map((p, i) => p && (
+        <div class="prod-block" data-reveal="right" style={`--reveal-delay:${i * 120}ms`}>
+          <p class="eyebrow">{p.label}</p>
+          <h3>{p.title}</h3>
+          <p>{p.summary}</p>
+          <a class="btn btn-brand btn-sm" href={`/products/${p.slug}/`}>Learn more</a>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <h2>Ready to discuss your transaction?</h2>
+      <a class="btn btn-white" href="/contact-us/">Contact us</a>
+    </div>
+  </section>
+</BaseLayout>

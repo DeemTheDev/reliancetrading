@@ -1,0 +1,45 @@
+---
+/** "Bridging finance fast" contact card that slides in bottom-right (once per browser session). */
+import { site } from '../config/site';
+import Icon from './Icon.astro';
+import Logo from './Logo.astro';
+const p = site.popup;
+---
+{p.enabled && (
+  <aside class:list={['popup', { 'popup--desktop-only': !p.showOnMobile }]} id="contact-popup" role="dialog" aria-labelledby="popup-title" hidden data-delay={p.delayMs}>
+    <button class="popup-close" type="button" aria-label="Close"><Icon name="x" /></button>
+    <h3 id="popup-title">{p.title}</h3>
+    <p>{p.text}</p>
+    <ul class="icon-list">
+      <li><Icon name="phone" /><a href={site.phoneHref}>{site.phone}</a></li>
+      <li><Icon name="envelope" /><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      <li><Icon name="globe" /><a href={site.url}>www.{site.domainDisplay}</a></li>
+    </ul>
+    <div class="popup-foot">
+      <a class="btn btn-brand btn-sm" href={p.buttonHref}>{p.buttonLabel} <Icon name="file-text" /></a>
+      <Logo size="sm" href={null} />
+    </div>
+  </aside>
+)}
+
+<script>
+  const popup = document.getElementById('contact-popup');
+  if (popup) {
+    const KEY = 'rt-popup-dismissed';
+    let dismissed = false;
+    try { dismissed = sessionStorage.getItem(KEY) === '1'; } catch {}
+    const hide = () => {
+      popup.classList.remove('is-visible');
+      setTimeout(() => (popup.hidden = true), 300);
+      try { sessionStorage.setItem(KEY, '1'); } catch {}
+    };
+    if (!dismissed) {
+      setTimeout(() => {
+        popup.hidden = false;
+        requestAnimationFrame(() => popup.classList.add('is-visible'));
+      }, Number(popup.dataset.delay) || 2500);
+    }
+    popup.querySelector('.popup-close')?.addEventListener('click', hide);
+    popup.querySelectorAll('a').forEach((a) => a.addEventListener('click', hide));
+  }
+</script>

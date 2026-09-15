@@ -1,0 +1,85 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import Icon from '../../components/Icon.astro';
+import { site } from '../../config/site';
+import { products } from '../../data/products';
+
+export function getStaticPaths() {
+  return products.map((p) => ({ params: { slug: p.slug }, props: { product: p } }));
+}
+const { product } = Astro.props;
+const CO = site.name.toUpperCase();
+---
+<BaseLayout title={product.title} description={product.summary}>
+  <PageHero
+    title={product.title}
+    subtitle={product.heroSubtitle}
+    image={`/images/hero-${product.slug}.svg`}
+    buttonLabel="Click here"
+    buttonHref="#learn-more"
+  />
+
+  {product.intro.length > 0 && (
+    <section class="intro-band" id="learn-more">
+      <div class="parallax-bg" data-parallax="0.12" style="background-image:url('/images/texture-light.svg')"></div>
+      <div class="container" data-reveal>
+        {product.intro.map((para) => <p>{para}</p>)}
+      </div>
+    </section>
+  )}
+
+  {product.bullets && (
+    <section class="section section--tint" id={product.intro.length ? undefined : 'learn-more'}>
+      <div class="container grid grid-2" style="align-items:center">
+        <h3 style="font-size:clamp(24px,3vw,34px)" data-reveal="left">{product.bullets.heading}</h3>
+        <ul class="check-list" style="color:var(--navy)" data-reveal="right">
+          {product.bullets.items.map((b) => <li><Icon name="check" /><span style="font-weight:400">{b}</span></li>)}
+        </ul>
+      </div>
+    </section>
+  )}
+
+  <section class="section--tight">
+    <div class="container">
+      <div class="convey-card" data-reveal>
+        <div>
+          <h3>Conveyancers / Paralegals:</h3>
+          <p>We take the administrative burden away by completing the paperwork for you!</p>
+        </div>
+        <a class="btn btn-brand" href="/bridging-checklist/">Bridging checklist <Icon name="file-text" /></a>
+      </div>
+      <p class="convey-note" data-reveal>
+        Simply provide us with the relevant information / documentation referred to in the bridging checklist and we
+        will do the rest.
+      </p>
+    </div>
+  </section>
+
+  {product.requires && product.paysOutWhen && (
+    <section class="reqs">
+      <div class="container reqs-grid">
+        <img src={product.image} alt="" loading="lazy" data-reveal="left" />
+        <div data-reveal="right">
+          <h3>What {CO} typically requires to assess such an application:</h3>
+          <ul class="check-list">
+            {product.requires.map((r) => <li><Icon name="check" /><span>{r}</span></li>)}
+          </ul>
+          <hr />
+          <h3>{CO} will pay out when:</h3>
+          <ul class="check-list">
+            {product.paysOutWhen.map((r) => <li><Icon name="check" /><span>{r}</span></li>)}
+          </ul>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <section class="cta-band">
+    <div class="container">
+      <h2>Apply for {product.title.toLowerCase()}</h2>
+      <p style="max-width:600px;margin:0 auto 26px">Call {site.phone} or send us a message and our Credit Department will guide you through the process.</p>
+      <a class="btn btn-white" href="/contact-us/">Contact us</a>
+    </div>
+  </section>
+</BaseLayout>

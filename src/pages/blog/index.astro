@@ -1,0 +1,19 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import PostGrid from '../../components/PostGrid.astro';
+import { site } from '../../config/site';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+---
+<BaseLayout title="News" description={`Office updates and industry news from ${site.name}.`}>
+  <PageHero title="News" subtitle="Office updates and industry news" image="/images/hero-news.svg" />
+  <section class="section">
+    <div class="container">
+      <PostGrid posts={posts} />
+    </div>
+  </section>
+</BaseLayout>

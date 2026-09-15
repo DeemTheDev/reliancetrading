@@ -1,0 +1,82 @@
+---
+/**
+ * Contact form. Posts to /api/contact (see src/pages/api/contact.ts) which emails
+ * the enquiry over SMTP. Works without JavaScript too (normal form post).
+ */
+import { site } from '../config/site';
+---
+<form class="contact-form" id="contact-form" method="post" action="/api/contact" novalidate>
+  <div class="form-grid">
+    <div class="field">
+      <label for="cf-name">Name *</label>
+      <input id="cf-name" name="name" type="text" required autocomplete="name" placeholder="Your name" />
+    </div>
+    <div class="field">
+      <label for="cf-email">Email *</label>
+      <input id="cf-email" name="email" type="email" required autocomplete="email" placeholder="you@example.com" />
+    </div>
+    <div class="field">
+      <label for="cf-phone">Phone</label>
+      <input id="cf-phone" name="phone" type="tel" autocomplete="tel" placeholder="083 000 0000" />
+    </div>
+    <div class="field">
+      <label for="cf-subject">I am enquiring about</label>
+      <select id="cf-subject" name="subject">
+        <option value="General enquiry">General enquiry</option>
+        <option value="Seller Advances">Seller Advances</option>
+        <option value="Commission Advances">Commission Advances</option>
+        <option value="Bond Advances">Bond Advances</option>
+        <option value="Property Buyers">Property Buyers (transfer costs)</option>
+        <option value="Secured Business Loans">Secured Business Loans</option>
+      </select>
+    </div>
+    <div class="field full">
+      <label for="cf-message">Message *</label>
+      <textarea id="cf-message" name="message" required placeholder="Tell us about your transaction"></textarea>
+    </div>
+    <!-- honeypot: real users never see or fill this -->
+    <div class="hp" aria-hidden="true">
+      <label for="cf-company">Company</label>
+      <input id="cf-company" name="company" type="text" tabindex="-1" autocomplete="off" />
+    </div>
+  </div>
+  <div class="form-actions">
+    <button class="btn btn-brand" type="submit">Send message</button>
+    <span class="form-status" id="form-status" role="status" aria-live="polite"></span>
+  </div>
+  <p class="small muted" style="margin-top:18px">
+    Or email us directly at <a href={`mailto:${site.email}`}>{site.email}</a> or call {site.phone}.
+    By submitting this form you consent to us processing your details in line with our
+    <a href="/privacy-policy/">Privacy Notice</a>.
+  </p>
+</form>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+  form?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!form.reportValidity()) return;
+    const button = form.querySelector<HTMLButtonElement>('button[type=submit]');
+    if (button) button.disabled = true;
+    if (status) { status.textContent = 'Sending…'; status.className = 'form-status'; }
+    try {
+      const res = await fetch(form.action, {
+        method: 'POST',
+        headers: { Accept: 'application/json' },
+        body: new FormData(form),
+      });
+      const data = await res.json().catch(() => ({}));
+      if (res.ok && data.ok) {
+        form.reset();
+        if (status) { status.textContent = data.message || 'Thank you - we will be in touch shortly.'; status.className = 'form-status ok'; }
+      } else {
+        if (status) { status.textContent = data.error || 'Sorry, the message could not be sent. Please email us directly.'; status.className = 'form-status err'; }
+      }
+    } catch {
+      if (status) { status.textContent = 'Network error - please try again or email us directly.'; status.className = 'form-status err'; }
+    } finally {
+      if (button) button.disabled = false;
+    }
+  });
+</script>

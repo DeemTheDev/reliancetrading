@@ -1,0 +1,67 @@
+---
+import { site } from '../config/site';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const isActive = (href: string) => {
+  const h = href.replace(/\/$/, '') || '/';
+  return h === '/' ? current === '/' : current === h || current.startsWith(h + '/');
+};
+---
+<div class="topbar">
+  <div class="container topbar-inner">
+    <a href={`mailto:${site.email}`}><Icon name="envelope" /> {site.email}</a>
+    <a class="topbar-phone" href={site.phoneHref}><Icon name="phone" /> {site.phone}</a>
+  </div>
+</div>
+
+<header class="site-header" id="site-header">
+  <div class="container header-inner">
+    <Logo />
+    <div class="header-right">
+      <nav class="main-nav" id="main-nav" aria-label="Main">
+        <ul>
+          {site.nav.map((item) => (
+            <li class:list={[{ 'has-sub': !!item.children, 'is-active': isActive(item.href) }]}>
+              <a href={item.href} aria-current={isActive(item.href) ? 'page' : undefined}>
+                {item.label}
+                {item.children && <Icon name="chevron-down" />}
+              </a>
+              {item.children && (
+                <ul class="sub-menu">
+                  {item.children.map((c) => (
+                    <li><a href={c.href}>{c.label}</a></li>
+                  ))}
+                </ul>
+              )}
+            </li>
+          ))}
+          <li class="mobile-cta">
+            <a class="btn btn-brand btn-sm" href="/contact-us/">Contact us <Icon name="envelope" /></a>
+          </li>
+        </ul>
+      </nav>
+      <a class="btn btn-brand btn-sm header-cta" href="/contact-us/">Contact us <Icon name="envelope" /></a>
+      <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu">
+        <Icon name="menu" />
+      </button>
+    </div>
+  </div>
+</header>
+
+<script>
+  const toggle = document.querySelector<HTMLButtonElement>('.nav-toggle');
+  toggle?.addEventListener('click', () => {
+    const open = document.body.classList.toggle('nav-open');
+    toggle.setAttribute('aria-expanded', String(open));
+    toggle.setAttribute('aria-label', open ? 'Close menu' : 'Open menu');
+  });
+  // close the mobile menu when a link is chosen
+  document.querySelectorAll('#main-nav a').forEach((a) =>
+    a.addEventListener('click', () => {
+      document.body.classList.remove('nav-open');
+      toggle?.setAttribute('aria-expanded', 'false');
+    }),
+  );
+</script>

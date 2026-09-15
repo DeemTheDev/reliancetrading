@@ -1,0 +1,21 @@
+---
+/**
+ * Typographic wordmark: brand-colour bar | RELIANCE / TRADING SA / (PTY) LTD.
+ * Matches the logo used on the PDF application form. Pure HTML + CSS, so it
+ * stays crisp at any size and recolours with the --brand token.
+ */
+import { site } from '../config/site';
+interface Props { variant?: 'dark' | 'light'; size?: 'md' | 'sm'; href?: string | null }
+const { variant = 'dark', size = 'md', href = '/' } = Astro.props;
+const line1 = 'RELIANCE';
+const line2 = 'TRADING SA';
+const Tag = href ? 'a' : 'span';
+---
+<Tag class:list={['logo', `logo--${variant}`, `logo--${size}`]} href={href ?? undefined} aria-label={`${site.legalName} - home`}>
+  <span class="logo-bar" aria-hidden="true"></span>
+  <span class="logo-text" aria-hidden="true">
+    <span class="logo-l1">{line1}</span>
+    <span class="logo-l2">{[...line2].map((ch) => <span>{ch === ' ' ? ' ' : ch}</span>)}</span>
+    <span class="logo-l3">(PTY) LTD</span>
+  </span>
+</Tag>

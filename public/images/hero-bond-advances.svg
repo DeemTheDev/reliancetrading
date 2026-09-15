@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 900" width="1600" height="900">
+<defs>
+<linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#27477C"/><stop offset="1" stop-color="#132646"/></linearGradient>
+<pattern id="grid" width="133.3" height="133.3" patternUnits="userSpaceOnUse"><path d="M 133.3 0 L 0 0 0 133.3" fill="none" stroke="#FFFFFF" stroke-opacity="0.07" stroke-width="1"/></pattern>
+</defs>
+<rect width="1600" height="900" fill="url(#g)"/>
+<rect width="1600" height="900" fill="url(#grid)"/>
+<path d="M 1250 407 Q 1368 171 1286 428" stroke="#8DBCE6" stroke-opacity="0.36" stroke-width="16" fill="none" stroke-linecap="round"/>
+<circle cx="1295" cy="624" r="163" fill="#1A6FB5" fill-opacity="0.12"/>
+<circle cx="1182" cy="585" r="302" fill="#1A6FB5" fill-opacity="0.21"/>
+<rect x="253" y="-44" width="269" height="141" rx="28" fill="#FFFFFF" fill-opacity="0.10" transform="rotate(-1 800.0 450.0)"/>
+<circle cx="471" cy="4" r="218" fill="#8DBCE6" fill-opacity="0.21"/>
+<circle cx="1593" cy="756" r="511" fill="#1A6FB5" fill-opacity="0.18"/>
+<rect x="658" y="48" width="486" height="98" rx="20" fill="#FFFFFF" fill-opacity="0.15" transform="rotate(-16 800.0 450.0)"/>
+<path d="M 1356 0 Q 336 819 752 882" stroke="#8DBCE6" stroke-opacity="0.27" stroke-width="12" fill="none" stroke-linecap="round"/>
+</svg>

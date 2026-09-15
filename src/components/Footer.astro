@@ -1,0 +1,82 @@
+---
+import { site } from '../config/site';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+const year = new Date().getFullYear();
+const socials = [
+  { key: 'linkedin', label: 'LinkedIn', href: site.social.linkedin },
+  { key: 'facebook', label: 'Facebook', href: site.social.facebook },
+  { key: 'instagram', label: 'Instagram', href: site.social.instagram },
+].filter((s) => s.href) as { key: 'linkedin' | 'facebook' | 'instagram'; label: string; href: string }[];
+---
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-col footer-about">
+      <Logo />
+      <p>
+        Our primary focus is on offering specialised finance, which involves the provision of various forms of
+        short-term bridging finance, for both businesses and individuals, which is not typically provided by the
+        major banks and financial institutions.
+      </p>
+    </div>
+
+    <div class="footer-col">
+      <h5 class="footer-heading">Menu</h5>
+      <ul>
+        {site.footerMenu.map((m) => <li><a href={m.href}>{m.label}</a></li>)}
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5 class="footer-heading">Visit us</h5>
+      <div class="footer-address">
+        {site.address.lines.map((l) => <div>{l}</div>)}
+        {site.postalAddress && <div style="margin-top:10px">{site.postalAddress}</div>}
+      </div>
+      <ul style="margin-top:16px">
+        <li><a href={site.phoneHref}>{site.phone}</a></li>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <h5 class="footer-heading">Follow us</h5>
+      {socials.length > 0 ? (
+        <div class="footer-social">
+          {socials.map((s) => (
+            <a href={s.href} target="_blank" rel="noopener" aria-label={s.label}><Icon name={s.key} /></a>
+          ))}
+        </div>
+      ) : (
+        <p class="small muted" style="margin-top:22px">Social media links coming soon.</p>
+      )}
+      {site.memberships.length > 0 && (
+        <div class="footer-member">
+          <span>Member of:</span>
+          {site.memberships.map((m) =>
+            m.url ? (
+              <a href={m.url} target="_blank" rel="noopener"><img src={m.logo} alt={m.name} /></a>
+            ) : (
+              <img src={m.logo} alt={m.name} />
+            ),
+          )}
+        </div>
+      )}
+    </div>
+  </div>
+</footer>
+
+<div class="footer-bottom">
+  <div class="container footer-bottom-inner">
+    <div>Copyright {year} {site.copyrightHolder} | All rights reserved</div>
+    <a class="to-top" href="#top" aria-label="Back to top"><Icon name="arrow-up" /></a>
+    <div class="credit">
+      {site.developerCredit.name &&
+        (site.developerCredit.url ? (
+          <a href={site.developerCredit.url} target="_blank" rel="noopener">Developed by {site.developerCredit.name}</a>
+        ) : (
+          <span>Developed by {site.developerCredit.name}</span>
+        ))}
+    </div>
+  </div>
+</div>

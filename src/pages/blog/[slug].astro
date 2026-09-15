@@ -1,0 +1,32 @@
+---
+import { getCollection, render } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import PageHero from '../../components/PageHero.astro';
+import { categories, type CategorySlug } from '../../data/categories';
+
+export async function getStaticPaths() {
+  const posts = await getCollection('blog', ({ data }) => !data.draft);
+  return posts.map((post) => ({ params: { slug: post.id }, props: { post } }));
+}
+const { post } = Astro.props;
+const { Content } = await render(post);
+const category = categories[post.data.category as CategorySlug];
+const date = new Intl.DateTimeFormat('en-ZA', { day: 'numeric', month: 'long', year: 'numeric' }).format(post.data.pubDate);
+---
+<BaseLayout title={post.data.title} description={post.data.description} image={post.data.image}>
+  <PageHero title="News" subtitle={category} image="/images/hero-news.svg" />
+  <section class="section">
+    <div class="container">
+      <article class="article">
+        <div class="breadcrumb">
+          <a href="/blog/">News</a> / <a href={`/blog/category/${post.data.category}/`}>{category}</a>
+        </div>
+        <h1 style="font-size:clamp(28px,4vw,44px);text-transform:none;letter-spacing:0">{post.data.title}</h1>
+        <div class="post-meta" style="margin-bottom:26px">{date}</div>
+        <img class="cover" src={post.data.image} alt="" />
+        <div class="prose"><Content /></div>
+        <p style="margin-top:40px"><a class="btn btn-brand btn-sm" href="/blog/">Back to news</a></p>
+      </article>
+    </div>
+  </section>
+</BaseLayout>

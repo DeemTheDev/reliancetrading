@@ -1,0 +1,64 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Logo from '../components/Logo.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../config/site';
+import { products } from '../data/products';
+
+const productLabels: Record<string, string> = {
+  'seller-advances': 'Property related Seller Advances',
+  'commission-advances': 'Estate Agents Commission Advances',
+  'bond-advances': 'Property related Bond Advances',
+  'property-buyers': 'Bridging finance to property Buyers',
+  'secured-business-loans': 'Secured Business Loans',
+};
+---
+<BaseLayout title="About Us" description={`About ${site.name}: who we are, our company profile, our products and our people.`}>
+  <PageHero title="About Us" subtitle="We have solutions to help you scale" image="/images/hero-about.svg" />
+
+  <!-- Company profile -->
+  <section class="section">
+    <div class="container about-profile">
+      <div data-reveal="left">
+        <p class="eyebrow">Who we are</p>
+        <Logo href={null} />
+        <h2 style="font-size:clamp(30px,3.6vw,44px)">Company profile</h2>
+      </div>
+      <div data-reveal="right">
+        <p>{site.aboutIntro}</p>
+        <p>
+          Our core strength lies in the offering and provision of various forms of short-term bridging finance.
+          The primary focus here is on the offering of the below-mentioned products. These products are designed to
+          provide upfront cash flow to corporate entities and individuals in transactions where there is a sale of a
+          property or registration of a new bond pending. The demand arises due to the time period taken in the
+          conveyancing process to ultimately register the transfer of a property or bond in the Deeds Office.
+        </p>
+        <p>
+          In the case of the sale of a property, this time period is typically between 60 – 90 days and the seller
+          only receives payment of the proceeds from the sale upon registration.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- About our products -->
+  <section class="about-products">
+    <div class="about-products-dark">
+      <p class="eyebrow">Who we are</p>
+      <h3>About our products</h3>
+    </div>
+    <div class="about-products-list">
+      {products.map((p, i) => (
+        <a href={`/products/${p.slug}/`} data-reveal="right" style={`--reveal-delay:${i * 90}ms`}>{productLabels[p.slug] ?? p.title} <Icon name="arrow-right" /></a>
+      ))}
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <h2>Frequently asked questions</h2>
+      <a class="btn btn-white" href="/faqs/">Read the FAQs</a>
+    </div>
+  </section>
+</BaseLayout>

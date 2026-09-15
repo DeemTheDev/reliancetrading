@@ -1,0 +1,68 @@
+---
+/**
+ * The original site's "Bridging Checklist" button pointed at a page that no longer
+ * exists (it redirects to the home page). This page fills that gap by listing, per
+ * product, the documents our Credit Department needs, plus the transfer-status
+ * checklist from Part 7 of the Master Discounting Agreement application form.
+ */
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Icon from '../components/Icon.astro';
+import { site } from '../config/site';
+import { products } from '../data/products';
+
+const withReqs = products.filter((p) => p.requires);
+const transferChecklist = [
+  'Deposit paid into Trust',
+  'Bond Attorney instructed',
+  'Cancellation figures received',
+  'Transfer documents signed by both Parties',
+  'Bond documents signed by Purchaser',
+  'Costs paid by Purchaser',
+  'Guarantees issued',
+  'Transfer Duty receipt received',
+  'Rates / levy clearance certificates received',
+  'Lodged in the Deeds Office',
+];
+---
+<BaseLayout title="Bridging Checklist" description={`What ${site.name} needs from conveyancers and clients to assess a bridging finance application.`}>
+  <PageHero title="Bridging Checklist" subtitle="What we need to assess an application" image="/images/hero-services.svg" />
+
+  <section class="section">
+    <div class="container" style="max-width:900px">
+      <p class="eyebrow">For conveyancers / paralegals</p>
+      <h2 style="font-size:clamp(26px,3.4vw,40px)">We complete the paperwork for you</h2>
+      <p>
+        Simply email the documents listed below for the relevant product to
+        <a href={`mailto:${site.email}`}>{site.email}</a>, together with the transferring attorney's contact details,
+        and our Credit Department will draft the Master Discounting Agreement and Letter of Undertaking for signature.
+        Where documents are outstanding we liaise with the attorneys directly.
+      </p>
+
+      {withReqs.map((p) => (
+        <div style="margin-top:44px" data-reveal>
+          <h3>{p.title}</h3>
+          <ul class="check-list" style="color:var(--navy);margin-top:14px">
+            {p.requires!.map((r) => <li><Icon name="check" /><span>{r}</span></li>)}
+          </ul>
+        </div>
+      ))}
+
+      <div style="margin-top:44px" data-reveal>
+        <h3>Transfer status checklist</h3>
+        <p class="small muted">Indicate the current status of the transfer in the Letter of Undertaking (Part 7 of the application form):</p>
+        <ul class="check-list" style="color:var(--navy);margin-top:14px">
+          {transferChecklist.map((r) => <li><Icon name="check" /><span>{r}</span></li>)}
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-band">
+    <div class="container">
+      <h2>Ready to submit?</h2>
+      <p style="max-width:600px;margin:0 auto 26px">Call {site.phone} or email {site.email} and we will take it from there.</p>
+      <a class="btn btn-white" href="/contact-us/">Contact us</a>
+    </div>
+  </section>
+</BaseLayout>

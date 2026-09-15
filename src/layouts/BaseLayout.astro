@@ -1,0 +1,86 @@
+---
+import '../styles/global.css';
+import { site } from '../config/site';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SocialBar from '../components/SocialBar.astro';
+import Popup from '../components/Popup.astro';
+import Icon from '../components/Icon.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  /** set to false on legal pages etc. */
+  showPopup?: boolean;
+  noindex?: boolean;
+  image?: string;
+}
+const { title, description = site.description, showPopup = true, noindex = false, image = '/images/og-default.svg' } = Astro.props;
+const fullTitle = title === site.name ? `${site.name} | ${site.tagline}` : `${title} | ${site.name}`;
+const canonical = new URL(Astro.url.pathname, site.url).href;
+const ogImage = new URL(image, site.url).href;
+---
+<!doctype html>
+<html lang="en-ZA">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script is:inline>document.documentElement.classList.add('js');</script>
+    <title>{fullTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    {noindex && <meta name="robots" content="noindex,nofollow" />}
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <meta name="theme-color" content="#1a6fb5" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={fullTitle} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300;400;500;700;900&family=Nunito+Sans:ital,wght@0,400;0,600;0,700;1,400&family=Montserrat:wght@800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+
+    <script type="application/ld+json" set:html={JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FinancialService',
+      name: site.legalName,
+      alternateName: site.name,
+      url: site.url,
+      email: site.email,
+      telephone: site.phone,
+      address: {
+        '@type': 'PostalAddress',
+        streetAddress: '7 Moffat Drive',
+        addressLocality: 'Ballito',
+        postalCode: '4420',
+        addressRegion: 'KwaZulu-Natal',
+        addressCountry: 'ZA',
+      },
+      areaServed: 'ZA',
+      description: site.description,
+    })} />
+  </head>
+  <body id="top">
+    <Header />
+    <main>
+      <slot />
+    </main>
+    <Footer />
+    <SocialBar />
+    {showPopup && <Popup />}
+    <a class="back-to-top" id="back-to-top" href="#top" aria-label="Back to top"><Icon name="arrow-up" /></a>
+    <script>
+      import '../scripts/motion';
+    </script>
+  </body>
+</html>
