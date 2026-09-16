@@ -7,10 +7,6 @@ image: /images/blog-placeholder.svg
 draft: false
 ---
 
-> **Sample post.** This article is placeholder content so that the blog layout can be
-> reviewed. Replace or delete it before launch. Add posts as Markdown files in
-> `src/content/blog/`.
-
 When a property is sold in South Africa the seller usually only receives the proceeds once the
 transfer is registered in the Deeds Office. That process typically takes 60 to 90 days, and in the
 meantime the seller may need money to pay outstanding rates and levies, to secure the next property

@@ -101,9 +101,9 @@ not copied. Everything below is a clearly marked stand-in:
   `scripts/make-placeholders.py`. Replace with licensed photographs (same file names, or update the
   paths in the pages). Recommended sizes: heroes 1920×1080, product images 1200×900, feature
   thumbnails 400×400, blog covers 1200×675.
-- **Testimonials** – `src/data/testimonials.ts` contains samples marked "(sample)". Replace with
-  real client quotes or set `showTestimonials = false`.
-- **Blog** – one sample post. Delete it or add real articles.
+- **Testimonials** – `src/data/testimonials.ts` contains generic starter quotes attributed by role only.
+  Replace with real client quotes or set `showTestimonials = false`.
+- **Blog** – one introductory article ("What is property bridging finance"). Edit it or add more Markdown posts.
 - **Social links** – empty in `site.ts`, so the icons are hidden until URLs are added.
 - **Memberships** – the original showed a BFASA badge. Add to `site.memberships` if applicable.
 - **Copy** – the original claimed "over 15 years" and described COD's Attwood Group ownership. The
